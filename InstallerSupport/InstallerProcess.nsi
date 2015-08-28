@@ -8,121 +8,71 @@ Section "Shared Tools" Shared
 	${If} ${RunningX64}
 		;Extract the files to the above directory
 		File bin64\bash.exe ;which is switch.exe
-		File bin64\junction.exe   ;from sysinternals
-		File bin64\cygiconv-2.dll
-		;File bin64\cygminires.dll
-		;File bin64\cygreadline6.dll
-		File bin64\cygreadline7.dll
-		;File bin64\cygncurses7.dll
-		;File bin64\cygncurses-8.dll
-		;File bin64\cygncurses-9.dll
-		;File bin64\cygncurses-10.dll
-		File bin64\cygncursesw-10.dll
-		File bin64\cyggssapi-3.dll
-		File bin64\cygheimntlm-0.dll
-		;File bin64\cygkrb5-26.dll
-		File bin64\cygkrb5-3.dll
-		File bin64\cygasn1-8.dll
-		File bin64\cygroken-18.dll
-		File bin64\cyghx509-5.dll
-		File bin64\cygwind-0.dll
-		File bin64\cygheimbase-1.dll
-		File bin64\cyghdb-9.dll
-		File bin64\cygkadm5clnt-7.dll
-		File bin64\cygkadm5srv-8.dll
-		File bin64\cyggssapi_krb5-2.dll
-		File bin64\cygk5crypto-3.dll
-		File bin64\cygkrb5support-0.dll
-		File bin64\cygkafs-0.dll
-		;File bin64\cygkdc-2.dll
-		;File bin64\cygotp-0.dll
-		;File bin64\cygsl-0.dll
-		File bin64\cygcom_err-2.dll
-		File bin64\cygsqlite3-0.dll
-		;File bin64\cyggcc_s-1.dll
-		File bin64\cyggcc_s-seh-1.dll
-		File bin64\cygssp-0.dll
-		File bin64\cygintl-8.dll
-		File bin64\cygedit-0.dll
-		File bin64\editrights.exe
-		File bin64\chown.exe
 		File bin64\chmod.exe
-		File bin64\mv.exe
-		File bin64\cygattr-1.dll
-		File bin64\mkgroup.exe
-		;File bin64\mkpasswd.c
-		File bin64\mkpasswd.exe
-		File bin64\ssh-keygen.exe
-		File bin64\ssh-keyscan.exe
-		File bin64\ssh-agent.exe
-		File bin64\cygz.dll
+		File bin64\chown.exe
+		File bin64\cygcom_err-2.dll
 		File bin64\cygcrypt-0.dll
 		File bin64\cygcrypto-1.0.0.dll
+		File bin64\cygedit-0.dll
+		File bin64\cyggcc_s-seh-1.dll
+		File bin64\cyggssapi_krb5-2.dll
+		File bin64\cygiconv-2.dll
+		File bin64\cygintl-8.dll
+		File bin64\cygk5crypto-3.dll
+		File bin64\cygkrb5-3.dll
+		File bin64\cygkrb5support-0.dll
+		File bin64\cygncursesw-10.dll
+		File bin64\cygreadline7.dll
+		File bin64\cygssp-0.dll
 		File bin64\cygwin1.dll
-		File bin64\ssh-add.exe
-		File bin64\ssh-host-config
-		;File bin64\cygwrap-0.dll
-		File bin64\sha1sum.exe
+		File bin64\cygz.dll
+		File bin64\editrights.exe
+		File bin64\junction.exe   ;from sysinternals
 		File bin64\md5sum.exe
+		File bin64\mkgroup.exe
+		File bin64\mkpasswd.exe
+		File bin64\mv.exe
+		File bin64\sha1sum.exe
+		File bin64\ssh-add.exe
+		File bin64\ssh-agent.exe
+		File bin64\ssh-host-config
+		File bin64\ssh-keygen.exe
+		File bin64\ssh-keyscan.exe
 	${Else}
 force2:
 		;Extract the files to the above directory
 		File bin32\bash.exe ;which is switch.exe
-		File bin32\junction.exe   ;from sysinternals
-		File bin32\cygiconv-2.dll
-		File bin32\cygminires.dll
-		File bin32\cygreadline6.dll
-		File bin32\cygreadline7.dll
-		File bin32\cygncurses7.dll
-		File bin32\cygncurses-8.dll
-		File bin32\cygncurses-9.dll
-		File bin32\cygncurses-10.dll
-		File bin32\cygncursesw-10.dll
-		File bin32\cyggssapi-3.dll
-		File bin32\cygheimntlm-0.dll
-		;File bin32\cygkrb5-26.dll
-		File bin32\cygkrb5-3.dll
-		File bin32\cygasn1-8.dll
-		File bin32\cygroken-18.dll
-		File bin32\cyghx509-5.dll
-		File bin32\cygwind-0.dll
-		File bin32\cygheimbase-1.dll
-		File bin32\cyghdb-9.dll
-		File bin32\cygkadm5clnt-7.dll
-		File bin32\cygkadm5srv-8.dll
-		File bin32\cyggssapi_krb5-2.dll
-		File bin32\cygk5crypto-3.dll
-		File bin32\cygkrb5support-0.dll		
-		File bin32\cygkafs-0.dll
-		File bin32\cygkdc-2.dll
-		;File bin32\cygotp-0.dll
-		File bin32\cygsl-0.dll
-		File bin32\cygcom_err-2.dll
-		File bin32\cygsqlite3-0.dll
-		File bin32\cyggcc_s-1.dll
-		File bin32\cygssp-0.dll
-		File bin32\cygintl-8.dll
-		File bin32\cygedit-0.dll
-		File bin32\editrights.exe
-		File bin32\chown.exe
 		File bin32\chmod.exe
-		File bin32\mv.exe
-		File bin32\cygattr-1.dll
+		File bin32\chown.exe
+		File bin32\cygcom_err-2.dll
+		File bin32\cygcrypt-0.dll
+		File bin32\cygcrypto-1.0.0.dll
+		File bin32\cygedit-0.dll
+		File bin32\cyggcc_s-1.dll
+		File bin32\cyggssapi_krb5-2.dll
+		File bin32\cygiconv-2.dll
+		File bin32\cygintl-8.dll
+		File bin32\cygk5crypto-3.dll
+		File bin32\cygkrb5-3.dll
+		File bin32\cygkrb5support-0.dll		
+		File bin32\cygncursesw-10.dll
+		File bin32\cygreadline7.dll
+		File bin32\cygssp-0.dll
+		File bin32\cygwin1.dll
+		File bin32\cygz.dll
+		File bin32\editrights.exe
+		File bin32\junction.exe   ;from sysinternals
+		File bin32\md5sum.exe
 		File bin32\mkgroup.exe
 		File bin32\mkpasswd.c
 		File bin32\mkpasswd.exe
+		File bin32\mv.exe
+		File bin32\sha1sum.exe
+		File bin32\ssh-add.exe
+		File bin32\ssh-agent.exe
+		File bin32\ssh-host-config
 		File bin32\ssh-keygen.exe
 		File bin32\ssh-keyscan.exe
-		File bin32\ssh-agent.exe
-		File bin32\cygz.dll
-		File bin32\cygcrypt-0.dll
-		File bin32\cygcrypto-1.0.0.dll
-		File bin32\cygwin1.dll
-		File bin32\ssh-add.exe
-		File bin32\ssh-host-config
-		;File bin32\cygwrap-0.dll
-		File bin32\sha1sum.exe
-		File bin32\md5sum.exe
 	${EndIf}
 
 	;Set the output to the docs directory
@@ -343,6 +293,7 @@ force5:
 	IfFileExists \etc\ssh_config +2 0     ;if the user has re-installed, don't whack their config settings
 	File etc\ssh_config
 	File etc\moduli
+	File etc\sshd_config.sample
 
 	;Create /var/empty directory
 	SetOutPath $INSTDIR\var\empty
@@ -452,16 +403,16 @@ noprivsep:
 	;    702 [main] ssh-keygen 1904 open_stackdumpfile: Dumping stack trace to ssh-keygen.exe.stackdump
 	;  61429 [main] ssh-keygen 1904 exception::handle: Exception: STATUS_ACCESS_VIOLATION
 	;  70699 [main] ssh-keygen 1904 exception::handle: Error while dumping state (probably corrupted stack)
-	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b 1024 -t dsa -f /ssh_host_dsa_key -N ""` ;Creates a SSH2 DSA key (max 1024)
-	ExecWait `$INSTDIR\bin\mv /ssh_host_dsa_key* /etc`
-	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b $KEYSIZE -t rsa1 -f /ssh_host_key -N ""`    ;Creates a SSH1 RSA key
-	ExecWait `$INSTDIR\bin\mv /ssh_host_key* /etc/`
-	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b $KEYSIZE -t rsa -f /ssh_host_rsa_key -N ""` ;Creates a SSH2 RSA key
-	ExecWait `$INSTDIR\bin\mv /ssh_host_rsa_key* /etc/`
-	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b 521 -t ecdsa -f /ssh_host_ecdsa_key -N ""` ;Creates a SSH2 ECDSA key (max 521)
-	ExecWait `$INSTDIR\bin\mv /ssh_host_ecdsa_key* /etc/`
-	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b $KEYSIZE -t ed25519 -f /ssh_host_ed25519_key -N ""` ;Creates a SSH2 ed25519 key
-	ExecWait `$INSTDIR\bin\mv /ssh_host_ed25519_key* /etc/`	
+	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b 1024 -t dsa -f /etc/ssh_host_dsa_key -N ""` ;Creates a SSH2 DSA key (max 1024)
+	;ExecWait `$INSTDIR\bin\mv /ssh_host_dsa_key* /etc`
+	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b $KEYSIZE -t rsa1 -f /etc/ssh_host_key -N ""`    ;Creates a SSH1 RSA key
+	;ExecWait `$INSTDIR\bin\mv /ssh_host_key* /etc/`
+	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b $KEYSIZE -t rsa -f /etc/ssh_host_rsa_key -N ""` ;Creates a SSH2 RSA key
+	;ExecWait `$INSTDIR\bin\mv /ssh_host_rsa_key* /etc/`
+	ExecWait `$INSTDIR\bin\ssh-keygen.exe -b 521 -t ecdsa -f /etc/ssh_host_ecdsa_key -N ""` ;Creates a SSH2 ECDSA key (max 521)
+	;ExecWait `$INSTDIR\bin\mv /ssh_host_ecdsa_key* /etc/`
+	ExecWait `$INSTDIR\bin\ssh-keygen.exe -t ed25519 -f /etc/ssh_host_ed25519_key -N ""` ;Creates a SSH2 ed25519 key
+	;ExecWait `$INSTDIR\bin\mv /ssh_host_ed25519_key* /etc/`	
 
 	;If no keys were generated, this section is called. It is also called after keys have been generated
 	;This section displays a notice about configuring the passwd file for server access
@@ -510,6 +461,7 @@ fw_done:
 	${StrTok} $2 $1 '\' 'L' 1
 	;MessageBox MB_OK|MB_ICONINFORMATION "group = $1, split string=$2"
 	ExecWait `"$0" /C net localgroup $2 sshd_server /add`
+	ExecWait `"$0" /C net localgroup sftponly /comment:"Users in this group can only use sftp NOT an ssh terminal" /add`
 	
 	ExecWait `"$0" /C "$\"$INSTDIR\bin\editrights.exe"$\" -a SeAssignPrimaryTokenPrivilege -u sshd_server`
 	ExecWait `"$0" /C "$\"$INSTDIR\bin\editrights.exe"$\" -a SeCreateTokenPrivilege -u sshd_server`
@@ -522,6 +474,7 @@ fw_done:
 
 	;ExecWait `"$0" /C "$\"$INSTDIR\bin\mkgroup.exe"$\" -l >> ..\..\etc\group`		;create local group file
 	ExecWait `"$0" /C "$\"$INSTDIR\bin\mkpasswd.exe"$\" -l -u sshd_server >> ..\..\etc\passwd`		;create local passwd file
+	ExecWait `"$0" /C "$\"$INSTDIR\bin\mkgroup.exe"$\" -l -g sftponly >> ..\..\etc\group`		;create local passwd file
 	;set privsep permissions on folder correctly for w2k3 and above
 
 ; sequence is remove inheritance, then grant sshd_server

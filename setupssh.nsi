@@ -1,9 +1,10 @@
 ;This REQUIRES NSIS Modern User Interface Version 1.70 (NSIS 2.0-Final)
 
-;OpenSSH for Windows 6.9p1-1, OpenSSL 0.9.8zf/1.0.2c-1
+;OpenSSH for Windows 7.1p1-1, OpenSSL 1.0.2d-1
 ;Installer Script
 ;Written by Michael Johnson
 ;Updated and modified by Mark Saeger
+;Updated by Bernard Spil
 ;Based on script examples by Joost Verburg
 ;
 ;This script and related support files are licensed under the GPL
@@ -23,13 +24,13 @@ ${unStrTok}
 !include ".\InstallerSupport\GetParent.nsi"
 
 ;General Variables (Installer Global ONLY)
-Name "OpenSSH for Windows 6.9p1-1"                   ;The name of the product
+Name "OpenSSH for Windows 7.1p1-1"                   ;The name of the product
 SetCompressor /SOLID /FINAL lzma                     ;Use lzma Compression
-OutFile "setupssh-6.9p1-1.exe"                       ;This is the name of the output file
+OutFile "setupssh-7.1p1-1.exe"                       ;This is the name of the output file
 !packhdr tmp.dat "c:\upx\upx.exe --best -q tmp.dat"  ;Compress the NSIS header with UPX
 RequestExecutionLevel admin
-!define _VERSION "6.9.1.1" 							 ;must be numeric 4 digits 
-!define _VERSION_NAME "6.9p1-1" 
+!define _VERSION "7.1.1.1" 							 ;must be numeric 4 digits 
+!define _VERSION_NAME "7.1p1-1" 
 !define _NAME "OpenSSH for Windows" 
 
 ;Interface Customization
@@ -45,6 +46,7 @@ RequestExecutionLevel admin
 Var MUI_TEMP
 Var STARTMENU_FOLDER
 Var PRIVSEP
+Var CHROOT
 Var SSHDSERVER
 Var SSHDPASS
 Var SSHDPORT
@@ -268,10 +270,10 @@ Function .onInit
 	;default settings for variables/parameters
 	StrCpy $SSHDPORT 22
 	StrCpy $SSHDSERVER 0
-	StrCpy $PRIVSEP 0
+	StrCpy $PRIVSEP 1
 	StrCpy $SSHDPASS ""
 	StrCpy $SSHDDOMAIN 0
-	StrCpy $KEYSIZE 2048
+	StrCpy $KEYSIZE 4096
 	StrCpy $SSHCLIENTONLY 0
 	StrCpy $SSHSERVERONLY 0
 	StrCpy $X86FORCE 0
@@ -486,133 +488,50 @@ Function WriteSshdConfig
 	;at this point, can re-write out the sshd_config file
 	SetOutPath $INSTDIR\etc
 	FileOpen $9 sshd_config w ;Opens a Empty File an fills it
-	FileWrite $9 "#	$$OpenBSD: sshd_config,v 1.93 2014/01/10 05:59:19 djm Exp $$"
-	FileWrite $9 "$\r$\n"
 	FileWrite $9 "# This is the sshd server system-wide configuration file.  See$\r$\n"
 	FileWrite $9 "# sshd_config(5) for more information.$\r$\n"
 	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# This sshd was compiled with PATH=/bin:/usr/sbin:/sbin:/usr/bin$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# The strategy used for options in the default sshd_config shipped with$\r$\n"
-	FileWrite $9 "# OpenSSH is to specify options with their default value where$\r$\n"
-	FileWrite $9 "# possible, but leave them commented.  Uncommented options change a$\r$\n"
-	FileWrite $9 "# default value.$\r$\n"
-	FileWrite $9 "$\r$\n"
 	FileWrite $9 "Port $SSHDPORT$\r$\n"
-	FileWrite $9 "#AddressFamily any$\r$\n"
-	FileWrite $9 "#ListenAddress 0.0.0.0$\r$\n"
-	FileWrite $9 "#ListenAddress ::$\r$\n"
 	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# The default requires explicit activation of protocol 1$\r$\n"
-	FileWrite $9 "#Protocol 2$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# HostKey for protocol version 1$\r$\n"
-	FileWrite $9 "#HostKey /etc/ssh_host_key$\r$\n"
-	FileWrite $9 "# HostKeys for protocol version 2$\r$\n"
-	FileWrite $9 "#HostKey /etc/ssh_host_rsa_key$\r$\n"
-	FileWrite $9 "#HostKey /etc/ssh_host_dsa_key$\r$\n"
-	FileWrite $9 "#HostKey /etc/ssh_host_ecdsa_key$\r$\n"
-	FileWrite $9 "#HostKey /etc/ssh_host_ed25519_key$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Lifetime and size of ephemeral version 1 server key$\r$\n"
-	FileWrite $9 "#KeyRegenerationInterval 1h$\r$\n"
-	FileWrite $9 "#ServerKeyBits 1024$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Ciphers and keying$\r$\n"
-	FileWrite $9 "#RekeyLimit default none$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Logging$\r$\n"
-	FileWrite $9 "#obsoletes QuietMode and FascistLogging$\r$\n"
-	FileWrite $9 "#SyslogFacility AUTH$\r$\n"
-	FileWrite $9 "#LogLevel INFO$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Authentication:$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "#LoginGraceTime 2m$\r$\n"
-	FileWrite $9 "PermitRootLogin yes$\r$\n"
+	FileWrite $9 "PermitRootLogin no$\r$\n"
 	FileWrite $9 "StrictModes yes$\r$\n"
-	FileWrite $9 "#MaxAuthTries 6$\r$\n"
-	FileWrite $9 "#MaxSessions 10$\r$\n"
 	FileWrite $9 "$\r$\n"
 	FileWrite $9 "RSAAuthentication yes$\r$\n"
-	FileWrite $9 "#PubkeyAuthentication yes$\r$\n"
 	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# The default is to check both .ssh/authorized_keys and .ssh/authorized_keys2$\r$\n"
-	FileWrite $9 "# but this is overridden so installations will only check .ssh/authorized_keys$\r$\n"
-	FileWrite $9 "#AuthorizedKeysFile	.ssh/authorized_keys$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "#AuthorizedPrincipalsFile none$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "#AuthorizedKeysCommand none$\r$\n"
-	FileWrite $9 "#AuthorizedKeysCommandUser nobody$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts$\r$\n"
-	FileWrite $9 "#RhostsRSAAuthentication no$\r$\n"
-	FileWrite $9 "# similar for protocol version 2$\r$\n"
-	FileWrite $9 "#HostbasedAuthentication no$\r$\n"
-	FileWrite $9 "# Change to yes if you don't trust ~/.ssh/known_hosts for$\r$\n"
-	FileWrite $9 "# RhostsRSAAuthentication and HostbasedAuthentication$\r$\n"
 	FileWrite $9 "IgnoreUserKnownHosts yes$\r$\n"
-	FileWrite $9 "# Don't read the user's ~/.rhosts and ~/.shosts files$\r$\n"
-	FileWrite $9 "#IgnoreRhosts yes$\r$\n"
 	FileWrite $9 "$\r$\n"
 	FileWrite $9 "# To disable tunneled clear text passwords, change to no here!$\r$\n"
 	FileWrite $9 "PasswordAuthentication yes$\r$\n"
-	FileWrite $9 "#PermitEmptyPasswords no$\r$\n"
 	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Change to no to disable s/key passwords$\r$\n"
-	FileWrite $9 "#ChallengeResponseAuthentication yes$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Kerberos options$\r$\n"
-	FileWrite $9 "#KerberosAuthentication no$\r$\n"
-	FileWrite $9 "#KerberosOrLocalPasswd yes$\r$\n"
-	FileWrite $9 "#KerberosTicketCleanup yes$\r$\n"
-	FileWrite $9 "#KerberosGetAFSToken no$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# GSSAPI options$\r$\n"
-	FileWrite $9 "#GSSAPIAuthentication no$\r$\n"
-	FileWrite $9 "#GSSAPICleanupCreds yes$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "# Set this to 'yes' to enable PAM authentication, account processing,$\r$\n"
-	FileWrite $9 "# and session processing. If this is enabled, PAM authentication will$\r$\n"
-	FileWrite $9 "# be allowed through the ChallengeResponseAuthentication and$\r$\n"
-	FileWrite $9 "# PasswordAuthentication.  Depending on your PAM configuration,$\r$\n"
-	FileWrite $9 "# PAM authentication via ChallengeResponseAuthentication may bypass$\r$\n"
-	FileWrite $9 "# the setting of 'PermitRootLogin without-password'.$\r$\n"
-	FileWrite $9 "# If you just want the PAM account and session checks to run without$\r$\n"
-	FileWrite $9 "# PAM authentication, then enable this but set PasswordAuthentication$\r$\n"
-	FileWrite $9 "# and ChallengeResponseAuthentication to 'no'.$\r$\n"
-	FileWrite $9 "#UsePAM yes$\r$\n"
-	FileWrite $9 "$\r$\n"
-	FileWrite $9 "#AllowAgentForwarding yes$\r$\n"
-	FileWrite $9 "#AllowTcpForwarding yes$\r$\n"
-	FileWrite $9 "#GatewayPorts no$\r$\n"
-	FileWrite $9 "#X11Forwarding no$\r$\n"
-	FileWrite $9 "#X11DisplayOffset 10$\r$\n"
-	FileWrite $9 "#X11UseLocalhost yes$\r$\n"
-	FileWrite $9 "#PrintMotd yes$\r$\n"
-	FileWrite $9 "#PrintLastLog yes$\r$\n"
-	FileWrite $9 "#TCPKeepAlive yes$\r$\n"
-	FileWrite $9 "#UseLogin no$\r$\n"
+	FileWrite $9 "AllowAgentForwarding no$\r$\n"
+	FileWrite $9 "AllowTcpForwarding no$\r$\n"
+	FileWrite $9 "X11Forwarding no$\r$\n"
 	StrCmp $PRIVSEP 1 +3				;if PRIVSEP==1, the set as yes(sandbox now), else as no
 	FileWrite $9 "UsePrivilegeSeparation no$\r$\n"
 	goto +2
 	FileWrite $9 "UsePrivilegeSeparation sandbox$\r$\n"
-	FileWrite $9 "#PermitUserEnvironment no$\r$\n"
-	FileWrite $9 "#Compression delayed$\r$\n"
-	FileWrite $9 "#ClientAliveInterval 0$\r$\n"
-	FileWrite $9 "#ClientAliveCountMax 3$\r$\n"
-	FileWrite $9 "#UseDNS yes$\r$\n"
-	FileWrite $9 "#PidFile /var/run/sshd.pid$\r$\n"
 	FileWrite $9 "MaxStartups 10:30:100$\r$\n"
-	FileWrite $9 "#PermitTunnel no$\r$\n"
-	FileWrite $9 "#ChrootDirectory none$\r$\n"
-	FileWrite $9 "#VersionAddendum none	$\r$\n"
+	FileWrite $9 "PermitTunnel no$\r$\n"
 	FileWrite $9 "$\r$\n"
 	FileWrite $9 "# default banner path$\r$\n"
 	FileWrite $9 "Banner /etc/banner.txt$\r$\n"
 	FileWrite $9 "$\r$\n"
 	FileWrite $9 "# override default of no subsystems$\r$\n"
-	FileWrite $9 "Subsystem	sftp	/usr/sbin/sftp-server$\r$\n"
+	FileWrite $9 "Subsystem	sftp	internal-sftp$\r$\n"
+	FileWrite $9 "$\r$\n"
+	FileWrite $9 "Match Group sftponly$\r$\n"
+	FileWrite $9 "	ChrootDirectory %h$\r$\n"
+	FileWrite $9 "	PermitTTY no$\r$\n"
+	FileWrite $9 "	ForceCommand internal-sftp$\r$\n"
 	FileClose $9 ;Closes the filled file
+FunctionEnd
+
+Function WriteRootWheel
+	SetOutPath $INSTDIR\etc
+	FileOpen $9 passwd a ;Append to file
+	FileWrite $9 "root:*:0:0:U-NT AUTHORITY\SYSTEM:S-1-5-18:/home/SYSTEM:/sbin/nologin$\r$\n"
+	FileClose $9 ;Closes passwd
+	FileOpen $9 group a ;Append to file
+	FileWrite $9 "wheel:S-1-5-18:0:$\r$\n"
+	FileClose $9 ;Closes group
 FunctionEnd
